@@ -11,8 +11,12 @@
           <h2>Filmes encontrados</h2>
         </div>
     </div>
-
-    <div class="row">
+      <div class="row">
+        <div class="col">
+          <button @click="mostrarCarrinho" class="btn btn-primary">Carrinho: {{ quantidadeNoCarrinho }} Filmes</button>
+        </div>
+      </div>
+    <div class="row" v-if="mostrarFilmes">
       <div class="col-3" v-for="filme in filmes" :key="filme.id">
         <div class="card">
           <img :src="filme.imagem" class="card-img-top" alt="imagem do filme">
@@ -20,11 +24,14 @@
             <h5 class="card-title">{{ filme.titulo }}</h5>
             <p class="card-text" v-html="filme.descricao"></p>
             <p class="card-text">{{ formatarPreco(filme.valor, "$") }}</p>
-            <a href="#" class="btn btn-primary">ALUGAR</a>
+            <a href="#" v-if="validarPermissaoParaAdicionarNoCarrinho(filme)" @click="adicionarAoCarrinho(filme)" class="btn btn-primary">ALUGAR</a>
+            <a href="#" v-else class="btn btn-primary disabled">ALUGAR</a>
           </div>
         </div>
       </div>
-
+    </div>
+    <div class="row" v-else>
+      <h2>Carrinho</h2>
     </div>
   </div>
 </template>
@@ -36,14 +43,16 @@ export default {
   data() {
     return {
       title: 'Locadora de Filmes',
+      mostrarFilmes: true,
       horas: new Date().getHours(),
       filmes: [
-        { id: 1, titulo: "Vingadores", descricao: "Um <b>filme</b> de heróis", valor: 25, imagem: image },
-        { id: 2, titulo: "Pantera Negra", descricao: "Um <b>filme</b> de panteras", valor: 35, imagem: image },
-        { id: 3, titulo: "Homem-Formiga", descricao: "Um <b>filme</b> de formigas", valor: 20, imagem: image },
-        { id: 4, titulo: "Capitã Marvel", descricao: "Um <b>filme</b> de capitãs", valor: 40, imagem: image },
-        { id: 5, titulo: "Hulk", descricao: "Um <b>filme</b> de força", valor: 10, imagem: image }
-      ]
+        { id: 1, titulo: "Vingadores", descricao: "Um <b>filme</b> de heróis", valor: 25, imagem: image, estoqueDisponivel: 3 },
+        { id: 2, titulo: "Pantera Negra", descricao: "Um <b>filme</b> de panteras", valor: 35, imagem: image, estoqueDisponivel: 6 },
+        { id: 3, titulo: "Homem-Formiga", descricao: "Um <b>filme</b> de formigas", valor: 20, imagem: image, estoqueDisponivel: 2  },
+        { id: 4, titulo: "Capitã Marvel", descricao: "Um <b>filme</b> de capitãs", valor: 40, imagem: image, estoqueDisponivel: 8 },
+        { id: 5, titulo: "Hulk", descricao: "Um <b>filme</b> de força", valor: 10, imagem: image, estoqueDisponivel: 7 }
+      ],
+      carrinho: []
     }
   },
   methods: {
@@ -51,9 +60,31 @@ export default {
       if(!parseInt(preco)) {
         return ""
       }
-      
       var precoFormatado = preco.toFixed(2).replace('.',',')
       return simbolo + " " + precoFormatado
+    },
+    adicionarAoCarrinho(filme) {
+      this.carrinho.push(filme.id)
+    },
+    quantidadeNoCarrinhoPorFilme(filme) {
+      var quantidade = 0
+      for (let i=0; i < this.carrinho.length; i++) {
+        if (filme.id == this.carrinho[i]) {
+          quantidade++
+        }
+      }
+      return quantidade
+    },
+    validarPermissaoParaAdicionarNoCarrinho(filme) {
+      return  filme.estoqueDisponivel > this.quantidadeNoCarrinhoPorFilme(filme)
+    },
+    mostrarCarrinho() {
+      this.mostrarFilmes = this.mostrarFilmes ? false : true
+    }
+  },
+  computed: {
+    quantidadeNoCarrinho() {
+      return this.carrinho.length
     }
   }
 }
@@ -80,5 +111,4 @@ export default {
 #fechada {
   color: red
 }
-
 </style>
