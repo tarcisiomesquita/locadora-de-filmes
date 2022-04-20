@@ -1,0 +1,49 @@
+{
+  "filmes": [
+    {
+      "id": 1,
+      "titulo": "Vingadores",
+      "descricao": "Um <b>filme</b> de heróis",
+      "valor": 25,
+      "imagem": "../assets/logo.png",
+      "estoqueDisponivel": 3,
+      "avaliacao": 5
+    },
+    {
+      "id": 2,
+      "titulo": "Pantera Negra",
+      "descricao": "Um <b>filme</b> de panteras",
+      "valor": 35,
+      "imagem": "../assets/logo.png",
+      "estoqueDisponivel": 6,
+      "avaliacao": 4
+    },
+    {
+      "id": 3,
+      "titulo": "Homem-Formiga",
+      "descricao": "Um <b>filme</b> de formigas",
+      "valor": 20,
+      "imagem": "../assets/logo.png",
+      "estoqueDisponivel": 2,
+      "avaliacao": 3
+    },
+    {
+      "id": 4,
+      "titulo": "Capitã Marvel",
+      "descricao": "Um <b>filme</b> de capitãs",
+      "valor": 40,
+      "imagem": "../assets/logo.png",
+      "estoqueDisponivel": 8,
+      "avaliacao": 4
+    },
+    {
+      "id": 5,
+      "titulo": "Hulk",
+      "descricao": "Um <b>filme</b> de força",
+      "valor": 10,
+      "imagem": "../assets/logo.png",
+      "estoqueDisponivel": 7,
+      "avaliacao": 2
+    }
+  ]
+}

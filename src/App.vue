@@ -1,33 +1,14 @@
 <template>
   <div id="app" class="container">
-    <div class="row" v-if="mostrarFilmes">
-      <my-main></my-main>
-    </div>
-    <my-form></my-form>
+    <router-view></router-view>
   </div>
 </template>
  
 <script>
-import MyMain from "./components/Main.vue"
-import MyForm from "./components/Form.vue"
 export default {
   name: 'app',
-  components: {
-    MyMain,
-    MyForm
-  },
   data() {
-    return {
-      title: 'Locadora de Filmes',
-      mostrarFilmes: true,
-    }
-  },
-  methods: {
-    mostrarCarrinho() {
-      this.mostrarFilmes = this.mostrarFilmes ? false : true
-    }
-  },
-  computed: {
+    return {}
   }
 }
 </script>

@@ -9,12 +9,14 @@
               <h2>Filmes encontrados</h2>
             </div>
         </div>
-          <div class="row">
+        <div class="row" >
             <div class="col">
-              <button class="btn btn-primary">Carrinho: {{ quantidadeNoCarrinho }} Filmes</button>
+              <router-link class="col" :to="{ name: 'form' }" custom v-slot="{ navigate, isActive }">
+                <button role="link" @click="navigate" :class="['btn btn-primary', 'btn-lg', { active: isActive, 'exact-active': isExactActive }]">Carrinho: {{ quantidadeNoCarrinho }} Filmes</button>
+              </router-link>
             </div>
-          </div>
-    </div>
+        </div>
+   </div>
 </template>
 <script>
     export default {
@@ -27,6 +29,11 @@
             return {
                 horas: new Date().getHours
             }
+        },
+        methods: {
+          mostrarCarrinho() {
+            this.$router.push({name: "form"})
+          }
         }
     }
 </script>
